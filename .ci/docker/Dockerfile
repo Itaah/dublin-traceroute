@@ -1,4 +1,3 @@
-# {docker build -t insomniacslk/dublin-traceroute -f Dockerfile .}
 FROM debian:stable
 
 # Install dependencies
@@ -15,6 +14,7 @@ RUN apt-get update &&                          \
         `# dependencies for the python module` \
         python3-dev \
         python3-setuptools \
+        python3-pip \
         libgraphviz-dev \
         python3-pygraphviz \
         python3-tabulate \
@@ -24,22 +24,25 @@ RUN apt-get update &&                          \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -x; \
-    git clone https://github.com/insomniacslk/dublin-traceroute.git && \
-    cd dublin-traceroute && \
+    git clone https://github.com/Itaah/dublin-traceroute.git && \
+    cd /dublin-traceroute && \
+    git checkout dev/itah/docker_run_target_and_custom_source_env_var && \
     mkdir build && \
     cd build && \
     cmake .. && \
     make && \
     make install && \
-    ldconfig
+    ldconfig && \
+    rm -R /dublin-traceroute
 
 # also install the python module
 RUN set -x; \
     git clone https://github.com/insomniacslk/python-dublin-traceroute.git && \
     cd python-dublin-traceroute && \
     python3 setup.py build && \
-    python3 setup.py install
+    python3 setup.py install && \
+    rm -R /python-dublin-traceroute
 
-CMD dublin-traceroute -o trace.json 8.8.8.8 && \
-    python3 -m dublintraceroute plot trace.json && \
-    mv trace.json.png /output/
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
