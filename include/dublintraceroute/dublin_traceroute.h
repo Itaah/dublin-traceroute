@@ -61,7 +61,8 @@ class  DublinTraceroute {
 private:
 	const uint16_t		 srcport_,
 				 dstport_;
-	const std::string	 dst_;
+	const std::string	 dst_,
+				 source_interface_;
 	const probe_type	 type_;
 	Tins::IPv4Address		 target_;
 	const uint8_t		 npaths_,
@@ -85,6 +86,7 @@ public:
 	static const uint8_t	 default_min_ttl = 1;
 	static const uint8_t	 default_max_ttl = 30;
 	static const uint16_t	 default_delay = 10;
+	static const std::string default_source_interface = Tins::NetworkInterface::default_interface().name();
 	static const bool	 default_broken_nat = false;
 	static const bool	 default_use_srcport_for_path_generation = false;
 	static const bool	 default_no_dns = false;
@@ -97,6 +99,7 @@ public:
 			const uint8_t min_ttl = default_min_ttl,
 			const uint8_t max_ttl = default_max_ttl,
 			const uint16_t delay = default_delay,
+			const std::string source_interface = default_source_interface,
 			const bool broken_nat = default_broken_nat,
 			const bool use_srcport_for_path_generation = default_use_srcport_for_path_generation,
 			const bool no_dns = default_no_dns
@@ -109,6 +112,7 @@ public:
 				min_ttl_(min_ttl),
 				max_ttl_(max_ttl),
 				delay_(delay),
+				source_interface_(source_interface),
 				broken_nat_(broken_nat),
 				use_srcport_for_path_generation_(use_srcport_for_path_generation),
 				no_dns_(no_dns)
@@ -122,6 +126,7 @@ public:
 			const uint8_t min_ttl = default_min_ttl,
 			const uint8_t max_ttl = default_max_ttl,
 			const uint16_t delay = default_delay,
+			const std::string source_interface = default_source_interface,
 			const bool broken_nat = default_broken_nat,
 			const bool use_srcport_for_path_generation = default_use_srcport_for_path_generation,
 			const bool no_dns = default_no_dns
@@ -134,6 +139,7 @@ public:
 				min_ttl_(min_ttl),
 				max_ttl_(max_ttl),
 				delay_(delay),
+				source_interface_(source_interface),
 				broken_nat_(broken_nat),
 				use_srcport_for_path_generation_(use_srcport_for_path_generation),
 				no_dns_(no_dns)
@@ -148,6 +154,7 @@ public:
 		min_ttl_(source.min_ttl_),
 		max_ttl_(source.max_ttl_),
 		delay_(source.delay_),
+		source_interface_(source.source_interface_),
 		broken_nat_(source.broken_nat_),
 		use_srcport_for_path_generation_(source.use_srcport_for_path_generation_),
 		no_dns_(source.no_dns_)
@@ -161,6 +168,7 @@ public:
 	inline const uint8_t min_ttl() const { return min_ttl_; }
 	inline const uint8_t max_ttl() const { return max_ttl_; }
 	inline const uint16_t delay() const { return delay_; }
+	inline const std::string &source_interface() const { return source_interface_; }
 	inline const bool broken_nat() const { return broken_nat_; }
 	inline const bool no_dns() const { return no_dns_; }
 	inline const bool use_srcport_for_path_generation() const { return use_srcport_for_path_generation_; }

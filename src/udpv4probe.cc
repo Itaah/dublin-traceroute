@@ -57,12 +57,12 @@ Tins::IP* UDPv4Probe::forge() {
 }
 
 Tins::IP &UDPv4Probe::send() {
-	Tins::NetworkInterface iface = Tins::NetworkInterface::default_interface();
+	//Tins::NetworkInterface iface = Tins::NetworkInterface::default_interface();
 	Tins::PacketSender sender;
 	if (packet == nullptr) {
 		packet = forge();
 	}
-	sender.send(*packet, iface.name());
+	sender.send(*packet, source_interface_);
 	return *packet;
 }
 

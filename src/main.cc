@@ -28,6 +28,7 @@ const struct option longopts[] = {
 	{"min-ttl", required_argument, NULL, 't'},
 	{"max-ttl", required_argument, NULL, 'T'},
 	{"delay", required_argument, NULL, 'D'},
+	{"source-interface", required_argument, NULL, 'S'},
 	{"broken-nat", no_argument, NULL, 'b'},
 	{"use-srcport", no_argument, NULL, 'i'},
 	{"no-dns", no_argument, NULL, 'N'},
@@ -47,6 +48,7 @@ Usage:
                              [--min-ttl=min_ttl]
                              [--max-ttl=max_ttl]
                              [--delay=delay_in_ms]
+							 [--source-interface=interface_name]
                              [--broken-nat]
                              [--use-srcport]
                              [--no-dns]
@@ -55,18 +57,19 @@ Usage:
                              [--version]
 
 Options:
-  -h --help                     this help
-  -v --version                  print the version of Dublin Traceroute
-  -s SRC_PORT --sport=SRC_PORT  the source port to send packets from (default: )" << DublinTraceroute::default_srcport << R"()
-  -d DST_PORT --dport=DST_PORT  the base destination port to send packets to (default: )" << DublinTraceroute::default_dstport << R"()
-  -n NPATHS --npaths=NPATHS     the number of paths to probe (default: )" << static_cast<int>(DublinTraceroute::default_npaths) << R"()
-  -t MIN_TTL --min-ttl=MIN_TTL  the minimum TTL to probe (default: )" << static_cast<int>(DublinTraceroute::default_min_ttl) << R"()
-  -T MAX_TTL --max-ttl=MAX_TTL  the maximum TTL to probe. Must be greater or equal than the minimum TTL (default: )" << static_cast<int>(DublinTraceroute::default_max_ttl) << R"()
-  -D DELAY --delay=DELAY        the inter-packet delay in milliseconds (default: )" << DublinTraceroute::default_delay << R"()
-  -b --broken-nat               the network has a broken NAT configuration (e.g. no payload fixup). Try this if you see fewer hops than expected
-  -i --use-srcport              generate paths using source port instead of destination port
-  -N --no-dns                   do not attempt to do reverse DNS lookup of the hops
-  -o --output-file              the output file name (default: stdout)
+  -h --help                                            this help
+  -v --version                                         print the version of Dublin Traceroute
+  -s SRC_PORT --sport=SRC_PORT                         the source port to send packets from (default: )" << DublinTraceroute::default_srcport << R"()
+  -d DST_PORT --dport=DST_PORT                         the base destination port to send packets to (default: )" << DublinTraceroute::default_dstport << R"()
+  -n NPATHS --npaths=NPATHS                            the number of paths to probe (default: )" << static_cast<int>(DublinTraceroute::default_npaths) << R"()
+  -t MIN_TTL --min-ttl=MIN_TTL                         the minimum TTL to probe (default: )" << static_cast<int>(DublinTraceroute::default_min_ttl) << R"()
+  -T MAX_TTL --max-ttl=MAX_TTL                         the maximum TTL to probe. Must be greater or equal than the minimum TTL (default: )" << static_cast<int>(DublinTraceroute::default_max_ttl) << R"()
+  -D DELAY --delay=DELAY                               the inter-packet delay in milliseconds (default: )" << DublinTraceroute::default_delay << R"()
+  -S INTERFACE_NAME --source-interface INTERFACE_NAME  the source-interface name to use
+  -b --broken-nat                                      the network has a broken NAT configuration (e.g. no payload fixup). Try this if you see fewer hops than expected
+  -i --use-srcport                                     generate paths using source port instead of destination port
+  -N --no-dns                                          do not attempt to do reverse DNS lookup of the hops
+  -o --output-file                                     the output file name (default: stdout)
 
 
 See documentation at https://dublin-traceroute.net
@@ -86,6 +89,7 @@ main(int argc, char **argv) {
 	long	min_ttl = DublinTraceroute::default_min_ttl;
 	long	max_ttl = DublinTraceroute::default_max_ttl;
 	long	delay = DublinTraceroute::default_delay;
+	std::string source_interface = DublinTraceroute::default_source_interface;
 	bool	broken_nat = DublinTraceroute::default_broken_nat;
 	bool	use_srcport_for_path_generation = DublinTraceroute::default_use_srcport_for_path_generation;
 	bool	no_dns = DublinTraceroute::default_no_dns;
