@@ -24,7 +24,7 @@ RUN apt-get update &&                          \
     rm -rf /var/lib/apt/lists/*
 
 RUN set -x; \
-    git clone https://github.com/itah/dublin-traceroute.git && \
+    git clone https://github.com/Itaah/dublin-traceroute.git && \
     cd /dublin-traceroute && \
     git checkout dev/itah/docker_run_target_and_custom_source && \
     mkdir build && \
