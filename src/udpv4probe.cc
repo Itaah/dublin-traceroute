@@ -56,13 +56,13 @@ Tins::IP* UDPv4Probe::forge() {
 	return packet;
 }
 
-Tins::IP &UDPv4Probe::send() {
+Tins::IP &UDPv4Probe::send(std::string source_intf) {
 	//Tins::NetworkInterface iface = Tins::NetworkInterface::default_interface();
 	Tins::PacketSender sender;
 	if (packet == nullptr) {
 		packet = forge();
 	}
-	sender.send(*packet, source_interface_);
+	sender.send(*packet, source_intf);
 	return *packet;
 }
 

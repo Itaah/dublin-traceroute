@@ -218,6 +218,7 @@ main(int argc, char **argv) {
 			min_ttl,
 			max_ttl,
 			delay,
+			source_interface,
 			broken_nat,
 			use_srcport_for_path_generation,
 			no_dns

@@ -232,7 +232,7 @@ std::shared_ptr<TracerouteResults> DublinTraceroute::traceroute() {
 			}
 			Tins::IP *packet;
 			try {
-				packet = &probe->send();
+				packet = &probe->send(source_interface());
 			} catch (std::runtime_error &e) {
 				std::stringstream ss;
 				ss << "Cannot send packet: " << e.what();

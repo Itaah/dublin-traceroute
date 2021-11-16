@@ -99,7 +99,7 @@ public:
 			const uint8_t min_ttl = default_min_ttl,
 			const uint8_t max_ttl = default_max_ttl,
 			const uint16_t delay = default_delay,
-			const std::string source_interface = default_source_interface,
+			const std::string &source_interface = default_source_interface,
 			const bool broken_nat = default_broken_nat,
 			const bool use_srcport_for_path_generation = default_use_srcport_for_path_generation,
 			const bool no_dns = default_no_dns
@@ -126,7 +126,7 @@ public:
 			const uint8_t min_ttl = default_min_ttl,
 			const uint8_t max_ttl = default_max_ttl,
 			const uint16_t delay = default_delay,
-			const std::string source_interface = default_source_interface,
+			const char *source_interface = default_source_interface,
 			const bool broken_nat = default_broken_nat,
 			const bool use_srcport_for_path_generation = default_use_srcport_for_path_generation,
 			const bool no_dns = default_no_dns
@@ -139,7 +139,7 @@ public:
 				min_ttl_(min_ttl),
 				max_ttl_(max_ttl),
 				delay_(delay),
-				source_interface_(source_interface),
+				source_interface_(std::string(source_interface)),
 				broken_nat_(broken_nat),
 				use_srcport_for_path_generation_(use_srcport_for_path_generation),
 				no_dns_(no_dns)
