@@ -8,6 +8,7 @@ RUN apt-get update &&                          \
         build-essential \
         pkg-config \
         cmake \
+        net-tools \
         libjsoncpp-dev \
         libtins-dev \
         libpcap-dev \

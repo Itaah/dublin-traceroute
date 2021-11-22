@@ -56,12 +56,6 @@ Tins::IP* UDPv4Probe::forge() {
 	return packet;
 }
 
-std::string getEnvVar( std::string const & key ) const
-{
-    char * val = getenv( key.c_str() );
-    return val == NULL ? std::string("") : std::string(val);
-}
-
 Tins::IP &UDPv4Probe::send() {
 	Tins::NetworkInterface iface = Tins::NetworkInterface::default_interface();
 	Tins::PacketSender sender;
