@@ -219,7 +219,8 @@ main(int argc, char **argv) {
 			no_dns
 	);
 	
-	std::cerr << "Traceroute from 0.0.0.0:" << Dublin.srcport();
+	char * source_ip = getenv( "SOURCE_IP" );
+	std::cerr << "Traceroute from " << source_ip == NULL ? "0.0.0.0" : std::string(source_ip) << ":" << Dublin.srcport();
 	if(use_srcport_for_path_generation == 1){
 		std::cerr << "~" << (Dublin.srcport() + npaths - 1);
 	}

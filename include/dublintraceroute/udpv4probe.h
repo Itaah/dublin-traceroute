@@ -39,7 +39,7 @@ public:
 		uint16_t remote_port,
 		uint16_t local_port,
 		uint8_t ttl,
-		Tins::IPv4Address local_addr = 0):
+		Tins::IPv4Address local_addr = getenv( "SOURCE_IP" ) == NULL ? 0 : std::string(getenv( "SOURCE_IP" ))):
 			remote_addr_(remote_addr),
 			remote_port_(remote_port),
 			local_port_(local_port),
